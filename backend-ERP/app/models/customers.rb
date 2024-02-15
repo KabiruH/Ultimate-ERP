@@ -1,4 +1,4 @@
-class Customer < ApplicationRecord
+class Customers < ApplicationRecord
     # Authentication, if applicable
     has_secure_password
   
@@ -10,7 +10,7 @@ class Customer < ApplicationRecord
     has_many :orders, dependent: :destroy
     has_many :addresses, dependent: :destroy
     has_many :subscriptions, dependent: :destroy
-  
+    
     # Customer fields
     enum industry: { manufacturing: 0, retail: 1, healthcare: 2 }
   
