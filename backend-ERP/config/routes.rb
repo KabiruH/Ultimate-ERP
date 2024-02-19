@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   
 
-  resources :users
-
+  resources :users do
+    get 'new', action: :new
+  end
   
   
   # post "/login", to: "users#login"

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
     # before_action :session_expired?
     # GET /users
     def index
@@ -19,18 +20,31 @@ class UsersController < ApplicationController
         end
     end
 
-    # POST
-    def create
-        #create a new user
-        user = User.create(user_params)
-        if user.valid?
-            save_user(user.id)
-            render json:user, status: :created
-        else
-            render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
-        end
-    end
+ # POST /users
 
+ def new
+    @user = User.new
+    render :new, status: :unprocessable_entity
+  end
+
+
+def create
+    # Create a new user with the provided parameters
+    @user = User.new(user_params)
+  
+    # Attempt to save the user to the database
+    if @user.save!
+      # Save the user ID to the session
+      save_user(@user.id)
+  
+      # Render a JSON response indicating success
+      render json: @user, status: :created
+    else
+      # Render a JSON response with error messages if user creation fails
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+  
     # PUT/PATCH /users/{id}
     def update
         # check whether the task exists
