@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+puts "seeding"
+
+
+  User.create!(
+    email: Faker::Internet.email,
+    username: Faker::Name.unique.name, # Ensure unique usernames
+    password_digest: 'password' # Set password directly to 'password'
+  )
+
+
+puts "done seeding"

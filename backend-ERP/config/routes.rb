@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   
 
-  resources :customers
+  resources :users
 
   
   
-
+  # post "/login", to: "users#login"
+  # delete '/logout', to: 'users#logout'
 end
