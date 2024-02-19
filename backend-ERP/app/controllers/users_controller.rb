@@ -24,24 +24,27 @@ class UsersController < ApplicationController
 
  def new
     @user = User.new
-    render :new, status: :unprocessable_entity
+    render :new
   end
 
 
 def create
     # Create a new user with the provided parameters
     @user = User.new(user_params)
+    # @user.password = params[:user][:password]
   
     # Attempt to save the user to the database
     if @user.save!
+    
       # Save the user ID to the session
       save_user(@user.id)
+      
   
       # Render a JSON response indicating success
-      render json: @user, status: :created
+      redirect_to user_path(@user), status: :created
     else
       # Render a JSON response with error messages if user creation fails
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
   
@@ -102,7 +105,8 @@ def create
 
      private
 
-    def user_params
-        params.permit(:username, :email, :password)
-    end
+     def user_params
+        params.require(:user).permit(:username, :email, :password)
+      end
+      
 end
