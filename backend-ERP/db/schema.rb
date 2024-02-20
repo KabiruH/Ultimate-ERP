@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_013717) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_210933) do
+  create_table "calculations", force: :cascade do |t|
+    t.date "date", null: false
+    t.decimal "net_profit_loss", precision: 10, scale: 2, null: false
+    t.decimal "revenue", precision: 10, scale: 2, null: false
+    t.decimal "expenses", precision: 10, scale: 2, null: false
+    t.decimal "sales", precision: 10, scale: 2, null: false
+    t.decimal "accounts_receivable", precision: 10, scale: 2, null: false
+    t.decimal "accounts_payable", precision: 10, scale: 2, null: false
+    t.integer "profit_loss_statement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profit_loss_statement_id"], name: "index_calculations_on_profit_loss_statement_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "product_id", null: false
@@ -51,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_013717) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "calculations", "profit_loss_statements"
   add_foreign_key "orders", "products"
   add_foreign_key "orders", "users"
 end

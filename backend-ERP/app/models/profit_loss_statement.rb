@@ -1,5 +1,7 @@
 class ProfitLossStatement < ApplicationRecord
   # Define attributes
+
+  has_one :calculation
   validates :date, :name, :amount, :revenue, :expenses, :sales, :accounts_receivable, :accounts_payable, presence: true
   
 
@@ -24,6 +26,14 @@ class ProfitLossStatement < ApplicationRecord
   #   accounts_receivable: accounts_receivable,
   #   accounts_payable: accounts_payable,
   #   net_profit_loss: net_profit_loss
+
+   # Create or update associated calculation record
+   calculation = self.build_calculation(
+    net_profit_loss: net_profit_loss,
+    revenue: revenue,
+    # ... other attributes
+  )
+  calculation.save!
   # }
 end
 end
