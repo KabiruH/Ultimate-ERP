@@ -1,0 +1,34 @@
+<%= form_with(model: @profit_loss_statement, url: profit_loss_statements_path, method: :post) do |form| %>
+  <div class="field">
+    <%= form.label :revenue %>
+    <%= form.number_field :revenue %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expenses %>
+    <%= form.number_field :expenses %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sales %>
+    <%= form.number_field :sales %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accounts_receivable %>
+    <%= form.number_field :accounts_receivable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accounts_payable %>
+    <%= form.number_field :accounts_payable %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit" %>
+  </div>
+
+
+  <% end %>
+
+

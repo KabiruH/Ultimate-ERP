@@ -1,0 +1,2 @@
+class TrialBalance < ApplicationRecord
+end

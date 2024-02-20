@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profit and Loss Statement</title>
+  <!-- Include any CSS or JavaScript files here -->
+</head>
+<body>
+  <h1>Profit and Loss Statement</h1>
+  
+  <p>Start Date: <%= @start_date %></p>
+  <p>End Date: <%= @end_date %></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Revenue</th>
+        <th>Expenses</th>
+        <th>Net Profit/Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @profit_loss_data.each do |pl_statement| %>
+        <tr>
+          <td><%= pl_statement.date %></td>
+          <td><%= pl_statement.revenue %></td>
+          <td><%= pl_statement.expenses %></td>
+          <td><%= pl_statement.net_profit_or_loss %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <!-- Add any additional HTML content or interactive elements here -->
+
+</body>
+</html>
