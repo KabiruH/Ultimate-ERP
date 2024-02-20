@@ -24,19 +24,19 @@ puts "seeding"
     password_digest: 'password' # Set password directly to 'password'
   )
 
-
-  start_date = Date.today.beginning_of_month
-  end_date = Date.today
-  
-  categories.each do |category|
-    category[:subcategories].each do |subcategory|
-      amount = Faker::Number.decimal(l_digits: 2)
-      ProfitLossStatement.create(
-        date: Faker::Date.between(from: start_date, to: end_date),
-        name: subcategory,
-        amount: category[:name] == "Income" ? amount : -amount # Negate expense amounts
-      )
-    end
+  10.times do
+    ProfitLossStatement.create(
+      date: Faker::Date.between(from: 1.year.ago, to: Date.today),
+      name: Faker::Lorem.word,
+      amount: Faker::Number.decimal(l_digits: 5, r_digits: 2), # Example of generating a decimal number
+      revenue: Faker::Number.decimal(l_digits: 5, r_digits: 2).to_d,  # Convert to decimal
+      expenses: Faker::Number.decimal(l_digits: 5, r_digits: 2).to_d,  # Convert to decimal
+      sales: Faker::Number.decimal(l_digits: 5, r_digits: 2).to_d,  # Convert to decimal
+      accounts_receivable: Faker::Number.decimal(l_digits: 5, r_digits: 2).to_d,  # Convert to decimal
+      accounts_payable: Faker::Number.decimal(l_digits: 5, r_digits: 2).to_d  # Convert to decimal
+    )
   end
+  
+ 
 
 puts "done seeding"

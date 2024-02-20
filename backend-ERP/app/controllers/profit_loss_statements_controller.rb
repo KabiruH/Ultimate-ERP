@@ -8,20 +8,20 @@ class ProfitLossStatementsController < ApplicationController
   end
 
   def create
-    binding.pry
-    @revenue = params[:profit_loss_statement][:revenue].to_f
-    @expenses = params[:profit_loss_statement][:expenses].to_f
-    @sales = params[:profit_loss_statement][:sales].to_f
-    @accounts_receivable = params[:profit_loss_statement][:accounts_receivable].to_f
-    @accounts_payable = params[:profit_loss_statement][:accounts_payable].to_f
+    @profit_loss_statement = ProfitLossStatement.new(profit_loss_statement_params)
   
-    @profit_loss_data = ProfitLossStatement.generate_data(
-      @revenue, @expenses, @sales, @accounts_receivable, @accounts_payable
-    )
-  
-    render :index
+    respond_to do |format|
+      if @profit_loss_statement.save
+        format.html { redirect_to profit_loss_statements_path, notice: 'Profit Loss Statement was successfully created.' }
+        format.json { render :show, status: :created, location: @profit_loss_statement }
+      else
+        format.html { render :new }
+        format.json { render json: @profit_loss_statement.errors, status: :unprocessable_entity }
+      end
+    end
   end
-
+  
+  
   def index
     @profit_loss_statements = ProfitLossStatement.all
     @start_date = params[:start_date]
@@ -29,6 +29,21 @@ class ProfitLossStatementsController < ApplicationController
     @profit_loss_data = @profit_loss_statements.map(&:generate_profit_loss_data)
   end
 
+  def show
+    @profit_loss_statement = ProfitLossStatement.find(params[:id]) # Modify query if needed
+  
+    respond_to do |format|
+      format.html { 
+        @calculated_data = @profit_loss_statement.generate_profit_loss_data
+        # Render show.html.erb using @calculated_data
+      }
+      format.json { render json: @calculated_data } # Or specific response structure
+    end
+  rescue ActiveRecord::RecordNotFound
+    render plain: 'Profit loss statement not found', status: :not_found
+  end
+  
+  
   # def download_csv
   #   @start_date = params[:start_date]
   #   @end_date = params[:end_date]

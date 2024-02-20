@@ -10,9 +10,24 @@
   <p>Start Date: <%= @start_date %></p>
   <p>End Date: <%= @end_date %></p>
 
-  
   <!-- Add the form with the submit button -->
   <%= form_with(model: @profit_loss_statement, url: profit_loss_statements_path, method: :post) do |form| %>
+    
+    <div class="field">
+      <%= form.label :date %>
+      <%= form.date_field :date %>
+    </div>
+
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :amount %>
+      <%= form.number_field :amount %>
+    </div>
+    
     <div class="field">
       <%= form.label :revenue %>
       <%= form.number_field :revenue %>
@@ -43,36 +58,25 @@
     </div>
   <% end %>
 
-<%= form_with(url: '#', method: :post) do |form| %>
-  # ... form fields ...
-  <div class="actions">
-    <button type="submit">Show Report</button>
+  <!-- Add the form for showing the report -->
+ 
+
+    <div class="actions">
+      <button type="submit" id="show-report">Show Report</button>
+    </div>
+
+
+ 
+
+<!-- Container to display submitted data -->
+  <div id="submitted-data">
+    <h2>Profit Loss Statement Details</h2>
+    <ul>
+      <!-- Data will be displayed here -->
+    </ul>
   </div>
-<% end %>
 
-<script>
-  const form = document.querySelector('form');
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+ 
 
-    const formData = new FormData(form);
-    const response = await fetch('/profit_loss_statements', {
-      method: 'POST',
-      body: formData
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      // Update the table with the received data
-      // (Use JavaScript to populate the table cells with values from data)
-    } else {
-      // Handle error scenario
-    }
-  });
-</script>
-
-
-  
 </body>
-
 </html>
