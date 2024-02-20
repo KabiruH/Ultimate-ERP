@@ -80,20 +80,18 @@ def create
 
     # AUTHENTICATE A USER
     def login
-        # get the user by email
+        # Find the user by email
         user = User.find_by(email: user_params[:email])
-
-        # validate whether the password is true
-        if user && user.authenticate(user_params[:password])
-            save_user(user.id)
-            token = encode_token(user.id, user.email)
-            render json: { user: user, token: token}, status: :ok
-
-        # return an invalid email or password scheme
-        else 
-            render json: { error: 'Invalid email or password'}, status: :unauthorized
+      
+        # Check if the user exists
+        if user
+          render json: { user: user }, status: :ok
+        else
+          render json: { error: 'User not found' }, status: :not_found
         end
-    end
+      end
+      
+
     # logout user
     def logout
         remove_user

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-// Choose any suitable HTTP request library:
-import axios from 'axios'; // Example (replace with your choice)
+import axios from 'axios'
 
 const ProfitLossDetails = ({ profitLossStatementId }) => {
   const [data, setData] = useState(null);

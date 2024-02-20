@@ -5,7 +5,7 @@ class User < ApplicationRecord
     has_many :orders, dependent: :destroy
   
     validates :email, presence: true, uniqueness: true 
-    # validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+    validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     validates :username, presence: true, uniqueness: true
     validates :password_digest, length: { minimum: 6 }, if: -> { new_record? || !password.nil? }
   
