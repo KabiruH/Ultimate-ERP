@@ -1,2 +1,5 @@
+# app/models/trial_balance.rb
 class TrialBalance < ApplicationRecord
-end
+    validates :date, :name, :amount, presence: true
+  end
+  
