@@ -1,4 +1,14 @@
-<%= form_with(model: @profit_loss_statement, url: profit_loss_statements_path, method: :post) do |form| %>
+<%= form_with(model: @profit_loss_statements, url: profit_loss_statements_path, method: :post) do |form| %>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div class="field">
+    <%= form.label :date, "Date (YYYY-MM-DD)" %>
+    <%= form.date_field :date, value: Date.today.strftime("%Y-%m-%d") %> </div>
+
+  <div class="field">
+    <%= form.label :amount, "Amount" %>
+    <%= form.number_field :amount %>
+  </div>
+
   <div class="field">
     <%= form.label :revenue %>
     <%= form.number_field :revenue %>
@@ -28,7 +38,4 @@
     <%= form.submit "Submit" %>
   </div>
 
-
-  <% end %>
-
-
+<% end %>

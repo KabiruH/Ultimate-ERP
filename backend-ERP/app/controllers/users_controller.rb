@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :verify_authenticity_token
+   
     # before_action :session_expired?
     # GET /users
     def index
@@ -34,7 +34,7 @@ def create
     # @user.password = params[:user][:password]
   
     # Attempt to save the user to the database
-    if @user.save!
+    if @user.save
     
       # Save the user ID to the session
       save_user(@user.id)
