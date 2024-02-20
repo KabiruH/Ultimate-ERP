@@ -26,7 +26,7 @@ class ProfitLossStatementsController < ApplicationController
   
   def show
     @profit_loss_statement = ProfitLossStatement.find(params[:id]) # Modify query if needed
-  
+    @calculation = @profit_loss_statement.calculation
     respond_to do |format|
       # Render JSON with appropriate attributes
       format.json { render json: @profit_loss_statement, only: [:id, :date, :name, :amount, :revenue, :expenses, :sales, :accounts_receivable, :accounts_payable], status: :ok }
